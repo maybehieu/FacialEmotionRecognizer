@@ -1,13 +1,14 @@
 import torch
 import torch.nn as nn
 from torchinfo import summary
+import torchvision.models as models
 
 # custom VGG13 model, more: https://arxiv.org/pdf/1608.01041.pdf
 
 
-class myModel(nn.Module):
+class CustomVGG13(nn.Module):
     def __init__(self, num_classes, mode="train") -> None:
-        super(myModel, self).__init__()
+        super(CustomVGG13, self).__init__()
         self.mode = mode
         self.convBlock = nn.Sequential(
             nn.Conv2d(3, 64, kernel_size=3, padding=1),
@@ -67,4 +68,24 @@ class myModel(nn.Module):
                 output = model(input)
                 output = F.softmax(dim=1)(output)
                 (I haven't test this one yet, it may not work but you get the idea)
+        """
+
+
+class MobileNetv2(nn.Module):
+    def __init__(self, num_classes, mode="train") -> None:
+        super(MobileNetv2, self).__init__()
+        self.mode = mode
+        self.mobilenetv2 = models.mobilenet_v2(pretrained=True)
+        self.mobilenetv2.classifier[1] = nn.Linear(1280, num_classes)
+        self.softmax = nn.Sequential(nn.Softmax(dim=1))
+
+    def forward(self, x):
+        if self.mode == "train":
+            x = self.mobilenetv2(x)
+        elif self.mode == "pred":
+            x = self.softmax(self.mobilenetv2(x))
+        return x
+
+        """
+        NOTE:   added implementation of the new mobileNetv2, which is much more lightweight, faster and maybe has more accuracy
         """
