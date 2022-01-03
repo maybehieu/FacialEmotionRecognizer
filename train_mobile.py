@@ -11,7 +11,7 @@ import tqdm as tq
 import numpy as np
 from collections import Counter
 
-CP_DIR = "/home/mabe/Documents/VSCode/AITeam/pytorch/emotion_regco/models/mobilenetv2/"
+CP_DIR = ""
 LAST_CPT_DIR = ""
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
