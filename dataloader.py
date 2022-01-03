@@ -7,7 +7,6 @@ import numpy as np
 import pandas as pd
 
 import os
-from csv import reader
 
 
 DATA_ROOT = ""  # path to 'datasets' folder
@@ -93,3 +92,15 @@ class CustomDataset(data.Dataset):
 
     def __len__(self):
         return len(self.df)
+
+# transform function for frame_pred
+
+
+def image_transform(img):
+    transform = transforms.Compose([
+        transforms.Resize(224),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ])
+    img = transform(img)
+    return img
