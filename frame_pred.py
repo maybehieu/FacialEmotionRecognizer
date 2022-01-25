@@ -24,7 +24,7 @@ class_dict = {
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 # time between each time the model predict with input image
 set_time = 10 if device == 'cuda' else 50
-# NOTE: 'cpu' users WILL experience frame lagging, freezing dues to the time to pass an image through the model.
+# NOTE: 'cpu' now lag-free if use Mobilenetv2 implementation (mistakes were made from my end, it was lag-free from the beginning)
 model = myModel(NUM_CLASSES, "pred").to(device)
 model.load_state_dict(torch.load(LAST_CPT_DIR))
 
