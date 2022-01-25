@@ -8,6 +8,7 @@ git clone https://github.com/maybehieu/FacialEmotionRegconizer.git
 pip install -r requirements.txt
 python generate_training_data.py -d (~PATH/dataset/) -fer (~PATH/fer2013.csv) -ferplus (~PATH/fer2013new.csv)
 ```
+- Note: Re-order the label.csv file to /dataset/label/ according to the instruction. (Or you could change the code according to your file structure, it's very simple)
 ## 2. Training
 ```sh
 python train_mobile.py # for mobilenetv2 implementation
