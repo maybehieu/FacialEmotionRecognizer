@@ -86,17 +86,19 @@ for epoch in range(EPOCHS):
         running_valid_acc += accuracy
     epoch_valid_loss = running_valid_loss / len(valLoader)
     epoch_valid_acc = running_valid_acc / len(valLoader)
-    if epoch_valid_acc > best_val_accu:
+    IMPROVED = False
+    if epoch_valid_acc > best_val_accu or epoch == 0:
         best_val_accu = epoch_valid_acc
-    if epoch_valid_loss < best_val_loss:
+    if epoch_valid_loss < best_val_loss or epoch == 0:
         best_val_loss = epoch_valid_loss
+        IMPROVED = True
     errors_valid.append(epoch_valid_loss)
     accu_valid.append(epoch_valid_acc)
     scheduler.step()
     print('Validated, Epoch {} - Loss {} - Acc {}'.format(CONTINUE_EPOCH +
                                                           epoch+1, epoch_valid_loss, epoch_valid_acc))
     print("")
-    if epoch_valid_loss < best_val_loss or epoch == 0:
+    if IMPROVED == True or epoch == 0:
         torch.save(model.state_dict(), os.path.join(
             CP_DIR, "MobileNet_epoch{}_valLoss{}_valAcc{}.pth".format(CONTINUE_EPOCH+epoch+1, epoch_valid_loss, epoch_valid_acc)))
         print("Saved checkpoint at epoch {} with validLoss= {} and validAccu= {}".format(
