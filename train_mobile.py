@@ -40,8 +40,8 @@ print("Finished loading model, initiating session...")
 errors_train = []
 errors_valid = []
 accu_valid = []
-best_val_loss = 0.0
-best_val_accu = 100.0
+best_val_loss = 100.0
+best_val_accu = 0.0
 for epoch in range(EPOCHS):
     running_train_loss = 0.0
     running_valid_loss = 0.0
