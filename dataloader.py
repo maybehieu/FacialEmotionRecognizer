@@ -5,7 +5,7 @@ import torch.utils.data as data
 from PIL import Image
 import numpy as np
 import pandas as pd
-
+import random
 import os
 
 
@@ -26,8 +26,29 @@ def process_csv(data_type="train"):
         "img_name", "dims", "0", "1", "2", "3", "4", "5", "6", "7",
         "Unknown", "NF"
     ]
-
+    origin_df['actual_label'] = origin_df[[
+        '0', '1', '2', '3', '4', '5', '6', '7']].apply(lambda x: _process_row(x), axis=1)
     origin_df.sort_values(by=['img_name'])
+
+    """
+    Removing 40~50% of neutral and happiness picture from training
+    Prevent overfitting and improves minor accuracy
+    """
+    if data_type == "train":
+        locs0 = sorted(
+            origin_df[origin_df['actual_label'] == '0'].index.values)
+
+        # remove ~60% neutral images of total
+        sample_index0 = random.Random(1).sample(locs0, int(len(locs0) * 0.6))
+        locs1 = sorted(origin_df[
+            origin_df['actual_label'] == '1'].index.values)
+
+        # remove ~50% happiness images of total
+        sample_index1 = random.Random(1).sample(locs1, int(len(locs1) * 0.5))
+
+        origin_df = origin_df.drop(sample_index0 +
+                                   sample_index1)
+
     fileName_df = origin_df['img_name'].values
 
     return origin_df, fileName_df
@@ -104,3 +125,8 @@ def image_transform(img):
     ])
     img = transform(img)
     return img
+
+
+def _process_row(row):
+    # return the max/"true" label in a single dataframe row
+    return np.argmax(row)
