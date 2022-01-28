@@ -104,7 +104,7 @@ for epoch in range(EPOCHS):
                                                           epoch+1, epoch_valid_loss, epoch_valid_acc))
     print("")
 
-    if epoch_valid_loss < best_val_loss:
+    if epoch_valid_loss < best_val_loss or epoch == 0:
         torch.save(model.state_dict(), os.path.join(
             CP_DIR, "VGG_epoch{}_valLoss{}_valAcc{}.pth".format(CONTINUE_EPOCH+epoch+1, epoch_valid_loss, epoch_valid_acc)))
         print("Saved checkpoint at epoch {} with validLoss= {} and validAccu= {}".format(
