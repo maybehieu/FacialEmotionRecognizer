@@ -106,7 +106,7 @@ class CustomDataset(data.Dataset):
     def __getitem__(self, index):
         fileName = self.fileName_df[index]
         filePath = os.path.join(self.DATA_DIR, fileName)
-        img = Image.open(filePath)
+        img = Image.open(filePath).convert('RGB')
         img = self.img_transform(img)
         label = self.get_class(fileName)
         return img, torch.tensor(label).to(torch.long)
