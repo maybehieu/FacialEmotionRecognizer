@@ -4,7 +4,7 @@ A simple emotion regconizer project using images classification I did in my jour
 
 ## 1.Requirements
 ```sh
-git clone https://github.com/maybehieu/FacialEmotionRegconizer.git
+git clone https://github.com/maybehieu/FacialEmotionRecognizer.git
 pip install -r requirements.txt
 python generate_training_data.py -d (~PATH/dataset/) -fer (~PATH/fer2013.csv) -ferplus (~PATH/fer2013new.csv)
 ```
