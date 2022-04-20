@@ -1,6 +1,6 @@
-# FacialEmotionRegconizer
+# FacialEmotionRecognizer
 
-A simple emotion regconizer project using images classification I did in my journey taking on AI
+A simple emotion recognizer project using images classification I did in my journey taking on AI
 
 ## 1.Requirements
 ```sh
@@ -8,7 +8,7 @@ git clone https://github.com/maybehieu/FacialEmotionRecognizer.git
 pip install -r requirements.txt
 python generate_training_data.py -d (~PATH/dataset/) -fer (~PATH/fer2013.csv) -ferplus (~PATH/fer2013new.csv)
 ```
-- Note: Re-order the label.csv file to /dataset/label/ according to the instruction. (Or you could change the code according to your file structure, it's very simple)
+- Note: Re-order the label.csv file to /dataset/label/ according to the instruction. (Or you could change the code according to your file structure)
 ## 2. Training
 ```sh
 python train_mobile.py # for mobilenetv2 implementation
