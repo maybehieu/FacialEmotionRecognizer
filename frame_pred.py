@@ -1,12 +1,12 @@
 import torch
-from model import myModel
+from model import MobileNetv2
 import cv2
 import os
 from PIL import Image
 import numpy as np
 from dataloader import image_transform
 
-LAST_CPT_DIR = "/checkpoints/mobilenetv2/model_weights.pth"  # path to the checkpoint weights you want to use
+LAST_CPT_DIR = r"checkpoints\mobilenetv2\model_weights.pth"  # path to the checkpoint weights you want to use
 NUM_CLASSES = 8
 width = 224
 height = 224
@@ -25,8 +25,8 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 # time between each time the model predict with input image
 set_time = 10 if device == 'cuda' else 50
 # NOTE: 'cpu' now lag-free if use Mobilenetv2 implementation (mistakes were made from my end, it was lag-free from the beginning)
-model = myModel(NUM_CLASSES, "pred").to(device)
-model.load_state_dict(torch.load(LAST_CPT_DIR))
+model = MobileNetv2(NUM_CLASSES, "pred").to(device)
+model.load_state_dict(torch.load(LAST_CPT_DIR, map_location=torch.device('cpu')))
 
 print("Finished loading model.")
 cap = cv2.VideoCapture(0)
