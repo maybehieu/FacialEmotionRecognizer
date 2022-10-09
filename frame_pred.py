@@ -6,7 +6,7 @@ from PIL import Image
 import numpy as np
 from dataloader import image_transform
 
-LAST_CPT_DIR = ""  # path to the checkpoint weights you want to use
+LAST_CPT_DIR = "/checkpoints/mobilenetv2/model_weights.pth"  # path to the checkpoint weights you want to use
 NUM_CLASSES = 8
 width = 224
 height = 224
